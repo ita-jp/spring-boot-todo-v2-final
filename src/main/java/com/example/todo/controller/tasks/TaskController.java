@@ -11,7 +11,8 @@ public class TaskController {
 
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("task", "Spring Boot を学ぶ");
+        var task = new TaskDTO(1, "Spring Boot を学ぶ", "TODO アプリケーションを作る", "TODO");
+        model.addAttribute("task", task);
         return "tasks/list";
     }
 }

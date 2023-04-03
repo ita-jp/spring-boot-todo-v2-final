@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/tasks")
 public class TaskController {
 
-    private final TaskService taskService = new TaskService();
+    private final TaskService taskService;
+
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
     @GetMapping
     public String index(Model model) {

@@ -14,7 +14,7 @@ public class TaskController {
 
     @GetMapping
     public String index(Model model) {
-        var dtoList = taskService.find();
+        var dtoList = taskService.find(); // TODO
         model.addAttribute("taskList", dtoList);
         return "tasks/list";
     }

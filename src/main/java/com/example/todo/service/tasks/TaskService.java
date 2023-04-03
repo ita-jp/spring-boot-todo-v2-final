@@ -1,14 +1,12 @@
 package com.example.todo.service.tasks;
 
-import com.example.todo.controller.tasks.TaskDTO;
-
 import java.util.List;
 
 public class TaskService {
 
-    public List<TaskDTO> find() {
-        var task1 = new TaskDTO(1, "Spring Boot を学ぶ", "TODO アプリケーションを作る", "TODO");
-        var task2 = new TaskDTO(2, "Spring Security を学ぶ", "ログイン機能を作る", "TODO");
+    public List<TaskEntity> find() {
+        var task1 = new TaskEntity(1L, "Spring Boot を学ぶ", "TODO アプリケーションを作る", TaskStatus.DONE);
+        var task2 = new TaskEntity(2L, "Spring Security を学ぶ", "ログイン機能を作る", TaskStatus.DONE);
         return List.of(task1, task2);
     }
 }

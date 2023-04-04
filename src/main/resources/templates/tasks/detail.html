@@ -5,7 +5,11 @@
     <title>タスク詳細</title>
 </head>
 <body>
-<h1>タスク詳細</h1>
 <a th:href="@{/tasks}">タスク一覧</a>
+<div th:object="${task}">
+    <h1 th:text="'#' + *{id} + ' ' + *{summary}"></h1>
+    <div th:text="*{status}"></div>
+    <pre th:text="*{description}"></pre>
+</div>
 </body>
 </html>

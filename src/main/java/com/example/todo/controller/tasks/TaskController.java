@@ -23,4 +23,9 @@ public class TaskController {
         model.addAttribute("taskList", dtoList);
         return "tasks/list";
     }
+
+    @GetMapping("detail")
+    public String showDetail() {
+        return "tasks/detail";
+    }
 }

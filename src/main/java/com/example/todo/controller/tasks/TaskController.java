@@ -27,6 +27,8 @@ public class TaskController {
 
     @GetMapping("{id}")
     public String showDetail(@PathVariable("id") long id) {
+        var taskEntity = taskService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Task not found"));
         return "tasks/detail";
     }
 }

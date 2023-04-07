@@ -9,7 +9,6 @@
 </head>
 <body>
 <section layout:fragment="content">
-    <a th:href="@{/tasks}">タスク一覧</a>
     <div th:object="${task}">
         <h1 th:text="'#' + *{id} + ' ' + *{summary}"></h1>
         <div th:text="*{status}"></div>

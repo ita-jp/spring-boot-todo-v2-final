@@ -40,7 +40,7 @@ public class TaskController {
     }
 
     @PostMapping
-    public String create(Model model) {
+    public String create(TaskForm form, Model model) {
         return index(model);
     }
 

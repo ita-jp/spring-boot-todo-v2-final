@@ -3,6 +3,7 @@ package com.example.todo.service.tasks;
 import com.example.todo.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,7 @@ public class TaskService {
         return taskRepository.selectById(id);
     }
 
+    @Transactional
     public void create(TaskEntity newEntity) {
         taskRepository.insert(newEntity);
     }

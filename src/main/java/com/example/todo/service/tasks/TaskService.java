@@ -20,4 +20,8 @@ public class TaskService {
     public Optional<TaskEntity> findById(long id) {
         return taskRepository.selectById(id);
     }
+
+    public void create(TaskEntity newEntity) {
+        taskRepository.insert(newEntity);
+    }
 }

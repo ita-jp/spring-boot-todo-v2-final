@@ -40,9 +40,9 @@ public class TaskController {
     }
 
     @PostMapping
-    public String create(TaskForm form, Model model) {
+    public String create(TaskForm form) {
         taskService.create(form.toEntity());
-        return index(model);
+        return "redirect:/tasks";
     }
 
 }

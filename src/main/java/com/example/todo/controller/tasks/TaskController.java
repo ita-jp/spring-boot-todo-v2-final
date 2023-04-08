@@ -1,8 +1,6 @@
 package com.example.todo.controller.tasks;
 
-import com.example.todo.service.tasks.TaskEntity;
 import com.example.todo.service.tasks.TaskService;
-import com.example.todo.service.tasks.TaskStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,13 +41,7 @@ public class TaskController {
 
     @PostMapping
     public String create(TaskForm form, Model model) {
-        var newEntity = new TaskEntity(
-                null,
-                form.summary(),
-                form.description(),
-                TaskStatus.valueOf(form.status())
-        );
-        taskService.create(newEntity);
+        taskService.create(form.toEntity());
         return index(model);
     }
 

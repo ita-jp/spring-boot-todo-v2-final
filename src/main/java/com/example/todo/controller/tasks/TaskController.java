@@ -37,14 +37,19 @@ public class TaskController {
     }
 
     @GetMapping("/creationForm")
-    public String showCreationForm() {
+    public String showCreationForm(TaskForm form, Model model) {
+        if (form == null) { // 作成画面を開いたとき
+            form = new TaskForm(null, null, null);
+        }
+        // else = バリデーションNGのとき、form には入力した値が入っている
+        model.addAttribute("taskForm", form);
         return "tasks/form";
     }
 
     @PostMapping
-    public String create(@Validated TaskForm form, BindingResult bindingResult) {
+    public String create(@Validated TaskForm form, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "tasks/form";
+            return showCreationForm(form, model);
         }
         taskService.create(form.toEntity());
         return "redirect:/tasks";

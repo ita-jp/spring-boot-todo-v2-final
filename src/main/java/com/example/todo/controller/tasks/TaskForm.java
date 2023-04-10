@@ -33,6 +33,15 @@ public record TaskForm(
         );
     }
 
+    public TaskEntity toEntity(long id) {
+        return new TaskEntity(
+                id,
+                summary,
+                description,
+                TaskStatus.valueOf(status)
+        );
+    }
+
     public static TaskForm toForm(TaskEntity taskEntity) {
         return new TaskForm(
                 taskEntity.summary(),

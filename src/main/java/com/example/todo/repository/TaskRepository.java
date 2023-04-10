@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,4 +21,14 @@ public interface TaskRepository {
 
     @Insert("INSERT INTO tasks (summary, description, status) VALUES (#{task.summary}, #{task.description}, #{task.status})")
     void insert(@Param("task") TaskEntity task);
+
+    @Update("""
+            UPDATE tasks
+            SET
+                summary     = #{entity.summary},
+                description = #{entity.description},
+                status      = #{entity.status}
+            WHERE id = #{entity.id}
+            """)
+    void update(@Param("entity") TaskEntity entity);
 }

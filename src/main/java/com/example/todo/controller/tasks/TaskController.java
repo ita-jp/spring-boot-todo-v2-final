@@ -69,6 +69,9 @@ public class TaskController {
             model.addAttribute("formControl", FormControl.forUpdate(id));
             return "tasks/form";
         }
+
+        taskService.update(form.toEntity(id));
+
         return "redirect:/tasks/{id}";
     }
 

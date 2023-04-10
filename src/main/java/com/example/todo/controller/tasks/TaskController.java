@@ -40,10 +40,7 @@ public class TaskController {
 
     @GetMapping("/creationForm")
     public String showCreationForm(@ModelAttribute TaskForm form, Model model) {
-        model.addAttribute("formMethod", "post");
-        model.addAttribute("formAction", "/tasks");
-        model.addAttribute("buttonLabel", "作成");
-        model.addAttribute("backURL", "/tasks");
+        model.addAttribute("formControl", FormControl.forCreate());
         return "tasks/form";
     }
 
@@ -62,23 +59,32 @@ public class TaskController {
                 .map(TaskForm::fromEntity)
                 .orElseThrow(TaskNotFoundException::new);
         model.addAttribute("taskForm", form);
-        model.addAttribute("formMethod", "put");
-        model.addAttribute("formAction", "/tasks/" + id);
-        model.addAttribute("buttonLabel", "更新");
-        model.addAttribute("backURL", "/tasks/" + id);
+        model.addAttribute("formControl", FormControl.forUpdate(id));
         return "tasks/form";
     }
 
     @PutMapping("/{id}")
     public String update(@PathVariable("id") long id, @Validated @ModelAttribute TaskForm form, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("formMethod", "put");
-            model.addAttribute("formAction", "/tasks/" + id);
-            model.addAttribute("buttonLabel", "更新");
-            model.addAttribute("backURL", "/tasks/" + id);
+            model.addAttribute("formControl", FormControl.forUpdate(id));
             return "tasks/form";
         }
         return "redirect:/tasks/{id}";
+    }
+
+    public record FormControl(
+            String formMethod,
+            String formAction,
+            String submitLabel,
+            String backURL
+    ) {
+        public static FormControl forCreate() {
+            return new FormControl("post", "/tasks", "作成", "/tasks");
+        }
+
+        public static FormControl forUpdate(long id) {
+            return new FormControl("put", "/tasks/" + id, "更新", "/tasks/" + id);
+        }
     }
 
 }

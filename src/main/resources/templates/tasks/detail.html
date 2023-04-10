@@ -9,7 +9,10 @@
 </head>
 <body>
 <section layout:fragment="content">
-    <div th:object="${task}">
+    <div>
+        <a th:href="@{/tasks/{id}/editForm(id=${id})}" class="btn btn-primary">編集</a>
+    </div>
+    <div class="mt-3" th:object="${task}">
         <h1 th:text="'#' + *{id} + ' ' + *{summary}"></h1>
         <div th:text="*{status}"></div>
         <pre th:text="*{description}"></pre>

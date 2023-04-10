@@ -1,5 +1,6 @@
 package com.example.todo.service.tasks;
 
+import com.example.todo.controller.tasks.TaskNotFoundException;
 import com.example.todo.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ public class TaskService {
 
     @Transactional
     public void update(TaskEntity entity) {
+        findById(entity.id()).orElseThrow(TaskNotFoundException::new);
         taskRepository.update(entity);
     }
 }

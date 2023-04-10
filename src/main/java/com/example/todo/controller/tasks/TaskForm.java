@@ -16,12 +16,28 @@ public record TaskForm(
         String status
 ) {
 
+    public static TaskForm fromEntity(TaskEntity entity) {
+        return new TaskForm(
+                entity.summary(),
+                entity.description(),
+                entity.status().name()
+        );
+    }
+
     public TaskEntity toEntity() {
         return new TaskEntity(
                 null,
                 summary,
                 description,
                 TaskStatus.valueOf(status)
+        );
+    }
+
+    public static TaskForm toForm(TaskEntity taskEntity) {
+        return new TaskForm(
+                taskEntity.summary(),
+                taskEntity.description(),
+                taskEntity.status().name()
         );
     }
 }

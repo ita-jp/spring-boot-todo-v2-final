@@ -53,7 +53,9 @@ public class TaskController {
 
     @GetMapping("/{id}/editForm")
     public String showEditForm(@PathVariable("id") long id, Model model) {
-        var form = new TaskForm("hoge", "fuga", "DONE");
+        var taskEntity = taskService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Task not found"));
+        var form = new TaskForm(taskEntity.summary(), taskEntity.description(), taskEntity.status().name());
         model.addAttribute("taskForm", form);
         return "tasks/form";
     }

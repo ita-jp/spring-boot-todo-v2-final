@@ -70,7 +70,14 @@ public class TaskController {
     }
 
     @PutMapping("/{id}")
-    public String update(@PathVariable("id") long id) {
+    public String update(@PathVariable("id") long id, @Validated @ModelAttribute TaskForm form, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("formMethod", "put");
+            model.addAttribute("formAction", "/tasks/" + id);
+            model.addAttribute("buttonLabel", "更新");
+            model.addAttribute("backURL", "/tasks/" + id);
+            return "tasks/form";
+        }
         return "redirect:/tasks/{id}";
     }
 

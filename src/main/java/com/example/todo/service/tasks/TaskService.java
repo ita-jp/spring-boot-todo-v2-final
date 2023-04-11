@@ -36,6 +36,9 @@ public class TaskService {
 
     @Transactional
     public void delete(long id) {
-        taskRepository.deleteById(id);
+        var isDeleted = taskRepository.deleteById(id);
+        if (!isDeleted) {
+            throw new TaskNotFoundException();
+        }
     }
 }

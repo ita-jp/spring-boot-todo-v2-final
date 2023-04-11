@@ -37,5 +37,5 @@ public interface TaskRepository {
             DELETE FROM tasks
             WHERE id = #{id}
             """)
-    void deleteById(@Param("id") long id);
+    boolean deleteById(@Param("id") long id);
 }

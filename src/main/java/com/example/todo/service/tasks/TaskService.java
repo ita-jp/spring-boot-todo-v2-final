@@ -33,4 +33,9 @@ public class TaskService {
         findById(entity.id()).orElseThrow(TaskNotFoundException::new);
         taskRepository.update(entity);
     }
+
+    @Transactional
+    public void delete(long id) {
+        taskRepository.deleteById(id);
+    }
 }

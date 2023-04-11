@@ -1,6 +1,7 @@
 package com.example.todo.repository;
 
 import com.example.todo.service.tasks.TaskEntity;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -31,4 +32,10 @@ public interface TaskRepository {
             WHERE id = #{entity.id}
             """)
     void update(@Param("entity") TaskEntity entity);
+
+    @Delete("""
+            DELETE FROM tasks
+            WHERE id = #{id}
+            """)
+    void deleteById(@Param("id") long id);
 }

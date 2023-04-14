@@ -1,6 +1,8 @@
 package com.example.todo.controller.tasks;
 
+import com.example.todo.service.tasks.TaskSearchEntity;
 import com.example.todo.service.tasks.TaskService;
+import com.example.todo.service.tasks.TaskStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/tasks")
 @RequiredArgsConstructor
@@ -23,7 +28,11 @@ public class TaskController {
 
     @GetMapping
     public String index(TaskSearchForm searchForm, Model model) {
-        var dtoList = taskService.find()
+        var statusEntityList = Optional.ofNullable(searchForm.status())
+                .map(statusList -> statusList.stream().map(TaskStatus::valueOf).toList())
+                .orElse(List.of());
+        var searchEntity = new TaskSearchEntity(searchForm.summary(), statusEntityList);
+        var dtoList = taskService.find(searchEntity)
                 .stream()
                 .map(TaskDTO::toDTO)
                 .toList();

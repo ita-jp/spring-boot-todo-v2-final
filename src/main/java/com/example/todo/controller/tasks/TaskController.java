@@ -22,7 +22,7 @@ public class TaskController {
     private final TaskService taskService;
 
     @GetMapping
-    public String index(Model model) {
+    public String index(TaskSearchForm searchForm, Model model) {
         var dtoList = taskService.find()
                 .stream()
                 .map(TaskDTO::toDTO)

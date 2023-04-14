@@ -28,6 +28,7 @@ public class TaskController {
                 .map(TaskDTO::toDTO)
                 .toList();
         model.addAttribute("taskList", dtoList);
+        model.addAttribute("searchDTO", searchForm.toDTO());
         return "tasks/list";
     }
 

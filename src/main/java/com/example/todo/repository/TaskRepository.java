@@ -1,6 +1,7 @@
 package com.example.todo.repository;
 
 import com.example.todo.service.tasks.TaskEntity;
+import com.example.todo.service.tasks.TaskSearchEntity;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -14,8 +15,12 @@ import java.util.Optional;
 @Mapper
 public interface TaskRepository {
 
-    @Select("SELECT id, summary, description, status FROM tasks")
-    List<TaskEntity> select();
+    @Select("""
+            SELECT id, summary, description, status
+            FROM tasks
+            WHERE summary LIKE CONCAT('%', #{condition.summary}, '%')
+            """)
+    List<TaskEntity> select(@Param("condition") TaskSearchEntity condition);
 
     @Select("SELECT id, summary, description, status FROM tasks WHERE id = #{id}")
     Optional<TaskEntity> selectById(@Param("id") long id);
